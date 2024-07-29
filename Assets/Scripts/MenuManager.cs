@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("Menu Screens")]
+    [Header("Main Menus")]
 
     [Tooltip("A main/title menu")]
     public GameObject mainMenu;
@@ -33,15 +33,22 @@ public class MenuManager : MonoBehaviour
     [Tooltip("A quit menu")]
     public GameObject quitMenu;
 
-    [Header("Game Mode Screen(s)")]
+    [Header("In-Game Menus")]
+
+    [Tooltip("A canvas containing all ingame UI")]
+    public GameObject canvasGame;
 
     [Tooltip("An in-game HUD")]
-    public GameObject inGameScreen;
+    public GameObject gameHUD;
 
-    //[Header("Loading Screen")]
+    [Tooltip("An in-game pause menu")]
+    public GameObject gamePauseMenu;
 
-    //public GameObject loadingScreenMenu;
-    //public Slider slider;
+    [Header("Loading Screen")]
+
+    [Tooltip("A loading screen")]
+    public GameObject loadingScreenMenu;
+    public Slider slider;
 
     private void Awake()
     {
@@ -50,14 +57,33 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (mainMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
+        if (mainMenu.activeInHierarchy)
         {
-            mainMenu.SetActive(false);
-            quitMenu.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                QuitMenu();
+            }
         }
-        if (!mainMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
+
+        else if (!mainMenu.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             MainMenu();
+        }
+
+        if (gameHUD.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseMenu();
+            }
+        }
+
+        else if (gamePauseMenu.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -104,7 +130,7 @@ public class MenuManager : MonoBehaviour
 
     public void OptionsSound()
     {
-        if (optionsMenu)
+        if (optionsMenu.activeInHierarchy)
         {
             //make sure to disable all other options submenus
             
@@ -132,15 +158,20 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    //load a specific saved game from a save file
-    //public void LoadFromSave()
-    //save slot 1
-    //save slot 2
-    //save slot 3
+    public void PauseMenu()
+    {
+        gameHUD.SetActive(false);
+        
+        gamePauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        //Debug.Log("time set to " + Time.timeScale);
+    }
 
-    //public void LoadingScreen()
-    //{
-    //    difficultySelectMenu.SetActive(false);
-    //    loadingScreenMenu.SetActive(true);
-    //}
+    public void ResumeGame()
+    {
+        gamePauseMenu.SetActive(false);
+        gameHUD.SetActive(true);
+        Time.timeScale = 1f;
+        //Debug.Log("time set to " + Time.timeScale);
+    }
 }
