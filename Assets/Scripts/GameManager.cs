@@ -1,10 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject canvasMain;
-    public GameObject canvasGame;
+    public GameObject canvasGame; 
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
 
         canvasGame.SetActive(true);
+
     }
 
     public void BackToMain()

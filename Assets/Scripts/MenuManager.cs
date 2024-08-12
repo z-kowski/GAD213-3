@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,17 +162,22 @@ public class MenuManager : MonoBehaviour
     public void PauseMenu()
     {
         gameHUD.SetActive(false);
-        
+
+        Cursor.lockState = CursorLockMode.Confined;
+
         gamePauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        //Debug.Log("time set to " + Time.timeScale);
+        Debug.Log("time set to " + Time.timeScale);
     }
 
     public void ResumeGame()
     {
         gamePauseMenu.SetActive(false);
         gameHUD.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.Locked;
+
         Time.timeScale = 1f;
-        //Debug.Log("time set to " + Time.timeScale);
+        Debug.Log("time set to " + Time.timeScale);
     }
 }
