@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public void BackToMain()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        //Debug.Log("timescale reset to 1");
     }
 }

@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +32,9 @@ public class MenuManager : MonoBehaviour
 
     [Tooltip("A quit menu")]
     public GameObject quitMenu;
+
+    [Tooltip("A backing image that is behind and containing button elements")]
+    public GameObject menuBackgroundImage;
 
     [Header("In-Game Menus")]
 
@@ -96,7 +98,9 @@ public class MenuManager : MonoBehaviour
         optionsSound.SetActive(false);
         optionsMenu.SetActive(false);
         quitMenu.SetActive(false);
+
         mainMenu.SetActive(true);
+        menuBackgroundImage.SetActive(true);
     }
 
     public void LevelSelectMenu()
@@ -144,16 +148,17 @@ public class MenuManager : MonoBehaviour
     public void QuitMenu()
     {
         mainMenu.SetActive(false);
+        menuBackgroundImage.SetActive(false);
         quitMenu.SetActive(true);
     }
 
     public void QuitGame()
     {
-        if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        }
-        else
+        //if (EditorApplication.isPlaying)
+        //{
+        //    EditorApplication.isPlaying = false;
+        //}
+        //else
         {
             Application.Quit();
         }
@@ -167,7 +172,7 @@ public class MenuManager : MonoBehaviour
 
         gamePauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        Debug.Log("time set to " + Time.timeScale);
+        //Debug.Log("time set to " + Time.timeScale);
     }
 
     public void ResumeGame()
@@ -178,6 +183,6 @@ public class MenuManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         Time.timeScale = 1f;
-        Debug.Log("time set to " + Time.timeScale);
+        //Debug.Log("time set to " + Time.timeScale);
     }
 }
